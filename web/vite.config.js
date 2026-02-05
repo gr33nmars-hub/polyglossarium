@@ -35,7 +35,8 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 600
+    chunkSizeWarningLimit: 600,
+    copyPublicDir: true
   },
   server: {
     host: true,
