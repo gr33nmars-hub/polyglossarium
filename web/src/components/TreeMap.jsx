@@ -94,7 +94,7 @@ export default function TreeMap() {
         const targetX = containerRect.width / 2 - (categoryRect.left - containerRect.left + categoryRect.width / 2);
         const targetY = containerRect.height / 2 - (categoryRect.top - containerRect.top + categoryRect.height / 2);
 
-        setPosition(constrainPosition({ x: targetX, y: targetY }, scale));
+        setPosition({ x: targetX, y: targetY });
     }, [scale]);
 
     const handleReset = () => {

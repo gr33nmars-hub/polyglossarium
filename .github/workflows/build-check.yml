@@ -1,0 +1,55 @@
+name: Build Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./web
+        run: npm ci
+
+      - name: Run linter
+        working-directory: ./web
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build project
+        working-directory: ./web
+        run: npm run build
+
+      - name: Check build output
+        run: |
+          if [ ! -d "web/dist" ]; then
+            echo "Error: dist directory not found"
+            exit 1
+          fi
+          if [ ! -f "web/dist/index.html" ]; then
+            echo "Error: index.html not found in dist"
+            exit 1
+          fi
+          echo "Build successful! Files in dist:"
+          ls -la web/dist
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: web/dist
+          retention-days: 7
