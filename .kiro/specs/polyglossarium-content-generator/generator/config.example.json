@@ -1,0 +1,252 @@
+{
+  // ============================================================================
+  // Polyglossarium Content Generator - Example Configuration
+  // ============================================================================
+  // 
+  // This is an example configuration file for the Polyglossarium Content Generator.
+  // Copy this file to config.json and customize the values for your environment.
+  //
+  // IMPORTANT: JSON does not support comments. Remove all comment lines (starting
+  // with //) before using this file, or use a JSON5-compatible parser.
+  //
+  // Quick Start:
+  //   1. Copy this file: cp config.example.json config.json
+  //   2. Remove all comment lines from config.json
+  //   3. Adjust paths to match your project structure
+  //   4. Customize limits and API settings as needed
+  //   5. Run: node src/main.js
+  // ============================================================================
+
+  // ----------------------------------------------------------------------------
+  // FILE PATHS
+  // ----------------------------------------------------------------------------
+  // All paths are relative to the project root directory.
+  // The generator will automatically resolve these paths from the project root.
+  
+  "paths": {
+    // Path to the curriculum.js file containing all topics to process
+    // This file should export a curriculum structure with categories and topics
+    // Default: "web/src/data/curriculum.js"
+    "curriculumPath": "web/src/data/curriculum.js",
+    
+    // Path to the topicDescriptions.js file where generated content will be saved
+    // This file will be updated with new topic descriptions
+    // A backup will be created automatically before modifications
+    // Default: "web/src/data/topicDescriptions.js"
+    "descriptionsPath": "web/src/data/topicDescriptions.js",
+    
+    // Path to the progress.json file for tracking generation progress
+    // This file allows the generator to resume from interruptions
+    // It stores: current index, processed topics, failed topics, and timestamps
+    // Default: ".kiro/specs/polyglossarium-content-generator/generator/progress.json"
+    "progressPath": ".kiro/specs/polyglossarium-content-generator/generator/progress.json",
+    
+    // Path to the generation.log file for detailed logging
+    // All generation events, errors, and statistics are logged here
+    // Log format: JSON lines with timestamp, level, message, and metadata
+    // Default: ".kiro/specs/polyglossarium-content-generator/generator/generation.log"
+    "logPath": ".kiro/specs/polyglossarium-content-generator/generator/generation.log",
+    
+    // Path where backup of topicDescriptions.js will be created
+    // A backup is automatically created before any modifications
+    // Use this backup to restore if generation fails
+    // Default: "web/src/data/topicDescriptions.js.backup"
+    "backupPath": "web/src/data/topicDescriptions.js.backup"
+  },
+
+  // ----------------------------------------------------------------------------
+  // CONTENT GENERATION LIMITS
+  // ----------------------------------------------------------------------------
+  // These limits control the quality and quantity of generated content.
+  // Adjust these values based on your content requirements and API constraints.
+  
+  "limits": {
+    // Maximum number of retry attempts for failed topics
+    // After this many failures, a topic is marked as permanently failed
+    // Range: 1-10 (recommended: 3)
+    // Default: 3
+    "maxRetries": 3,
+    
+    // Minimum word count for generated articles
+    // Articles shorter than this will fail validation
+    // Range: 100-1000 (recommended: 500)
+    // Default: 500
+    "minWordCount": 500,
+    
+    // Maximum word count for generated articles
+    // Articles longer than this will trigger a warning
+    // Range: 1000-5000 (recommended: 2000)
+    // Default: 2000
+    "maxWordCount": 2000,
+    
+    // Minimum number of reference links per article
+    // Articles with fewer links will fail validation
+    // Range: 3-10 (recommended: 5)
+    // Default: 5
+    "minLinks": 5,
+    
+    // Maximum number of reference links per article
+    // Articles with more links will fail validation
+    // Range: 5-20 (recommended: 10)
+    // Default: 10
+    "maxLinks": 10,
+    
+    // Number of topics to process in parallel
+    // Higher values speed up generation but increase API load
+    // Set to 1 for sequential processing (safest)
+    // Range: 1-5 (recommended: 1 for initial runs, 3 for production)
+    // Default: 1
+    // WARNING: Parallel processing is not fully implemented yet
+    "parallelism": 1
+  },
+
+  // ----------------------------------------------------------------------------
+  // API CONFIGURATION
+  // ----------------------------------------------------------------------------
+  // Settings for external API calls (web search, content generation).
+  // These settings help manage rate limits and prevent API throttling.
+  
+  "api": {
+    // Rate limits for API calls (requests per minute)
+    // These limits prevent exceeding API quotas and triggering rate limit errors
+    "rateLimit": {
+      // Maximum web search requests per minute
+      // Used for finding authoritative sources for each topic
+      // Adjust based on your exa-search MCP quota
+      // Range: 5-60 (recommended: 10)
+      // Default: 10
+      "webSearch": 10,
+      
+      // Maximum sequential thinking requests per minute
+      // Used for content planning and generation
+      // Adjust based on your AI API quota
+      // Range: 10-100 (recommended: 20)
+      // Default: 20
+      "sequentialThinking": 20
+    },
+    
+    // Retry delay configuration for failed API calls
+    // Uses exponential backoff: delay = initial * (multiplier ^ attempt)
+    "retryDelay": {
+      // Initial delay in milliseconds before first retry
+      // Range: 500-5000 (recommended: 1000)
+      // Default: 1000
+      "initial": 1000,
+      
+      // Multiplier for exponential backoff
+      // Each retry waits (multiplier) times longer than the previous
+      // Range: 1.5-3 (recommended: 2)
+      // Default: 2
+      "multiplier": 2,
+      
+      // Maximum delay in milliseconds between retries
+      // Prevents excessively long waits
+      // Range: 10000-60000 (recommended: 30000)
+      // Default: 30000
+      "maxDelay": 30000
+    }
+  },
+
+  // ----------------------------------------------------------------------------
+  // CONTENT VALIDATION
+  // ----------------------------------------------------------------------------
+  // Rules for validating generated content quality and structure.
+  // Failed validation results in articles being flagged for manual review.
+  
+  "validation": {
+    // Required sections that must be present in every article
+    // Articles missing any of these sections will fail validation
+    // Order matters: sections should appear in this sequence
+    // Default: ["intro", "techStack", "processes", "applications", "intersections"]
+    "requiredSections": [
+      "intro",          // Introductory paragraph explaining the discipline
+      "techStack",      // Technology stack and tools section
+      "processes",      // Typical processes and methodologies section
+      "applications",   // Real-world applications section
+      "intersections"   // Intersections with other areas section
+    ],
+    
+    // Minimum ratio of Cyrillic to total alphabetic characters
+    // Ensures content is primarily in Russian language
+    // Range: 0.5-0.9 (recommended: 0.7)
+    // Default: 0.7 (70% Cyrillic characters)
+    "minCyrillicRatio": 0.7
+  },
+
+  // ----------------------------------------------------------------------------
+  // LOGGING CONFIGURATION
+  // ----------------------------------------------------------------------------
+  // Settings for logging generation events, errors, and statistics.
+  // Logs are written to the file specified in paths.logPath.
+  
+  "logging": {
+    // Logging level: controls which messages are logged
+    // Levels (from most to least verbose): debug, info, warn, error
+    // - debug: All messages including detailed debugging information
+    // - info: General information about generation progress (recommended)
+    // - warn: Warnings and errors only
+    // - error: Errors only
+    // Default: "info"
+    "level": "info",
+    
+    // Timestamp format for log entries
+    // Options: "ISO8601", "unix", "locale"
+    // - ISO8601: Standard format (2024-01-15T10:30:45.123Z) - recommended
+    // - unix: Unix timestamp in milliseconds
+    // - locale: Locale-specific format
+    // Default: "ISO8601"
+    "timestampFormat": "ISO8601",
+    
+    // Whether to include stack traces in error logs
+    // Useful for debugging but makes logs more verbose
+    // Default: true
+    "includeStackTrace": true
+  }
+
+  // ============================================================================
+  // USAGE NOTES
+  // ============================================================================
+  //
+  // RATE LIMITS:
+  // - The generator respects API rate limits to prevent throttling
+  // - If you encounter rate limit errors, reduce rateLimit values
+  // - Processing time increases with lower rate limits
+  //
+  // PERFORMANCE:
+  // - Expected processing time: 30-60 seconds per topic
+  // - Total time for 280 topics: 2.5-5 hours (sequential processing)
+  // - Memory usage: typically under 500 MB
+  // - Disk space: ~10 MB for generated content
+  //
+  // PROGRESS TRACKING:
+  // - Progress is saved after each successful topic
+  // - Use --resume (default) to continue from last saved state
+  // - Use --no-resume to start fresh and reprocess all topics
+  // - Progress file can be deleted to reset completely
+  //
+  // ERROR RECOVERY:
+  // - Failed topics are automatically retried up to maxRetries times
+  // - After max retries, topics are marked as permanently failed
+  // - Check generation.log for detailed error information
+  // - Failed topics are listed in the final summary report
+  //
+  // BACKUP AND SAFETY:
+  // - A backup of topicDescriptions.js is created before modifications
+  // - curriculum.js is never modified (immutability is verified)
+  // - Use --dry-run to test without writing to files
+  //
+  // CUSTOMIZATION:
+  // - Adjust minWordCount/maxWordCount for different content lengths
+  // - Adjust minLinks/maxLinks for different reference densities
+  // - Adjust minCyrillicRatio if content includes technical terms
+  // - Adjust rate limits based on your API quotas
+  //
+  // TROUBLESHOOTING:
+  // - If generation is slow: increase rate limits (if API allows)
+  // - If getting rate limit errors: decrease rate limits
+  // - If validation fails frequently: adjust validation thresholds
+  // - If out of memory: reduce parallelism to 1
+  // - Check generation.log for detailed error messages
+  //
+  // ============================================================================
+}

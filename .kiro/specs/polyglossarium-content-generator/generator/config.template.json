@@ -1,0 +1,43 @@
+{
+  "paths": {
+    "curriculumPath": "web/src/data/curriculum.js",
+    "descriptionsPath": "web/src/data/topicDescriptions.js",
+    "progressPath": ".kiro/specs/polyglossarium-content-generator/generator/progress.json",
+    "logPath": ".kiro/specs/polyglossarium-content-generator/generator/generation.log",
+    "backupPath": "web/src/data/topicDescriptions.js.backup"
+  },
+  "limits": {
+    "maxRetries": 3,
+    "minWordCount": 500,
+    "maxWordCount": 2000,
+    "minLinks": 5,
+    "maxLinks": 10,
+    "parallelism": 1
+  },
+  "api": {
+    "rateLimit": {
+      "webSearch": 10,
+      "sequentialThinking": 20
+    },
+    "retryDelay": {
+      "initial": 1000,
+      "multiplier": 2,
+      "maxDelay": 30000
+    }
+  },
+  "validation": {
+    "requiredSections": [
+      "intro",
+      "techStack",
+      "processes",
+      "applications",
+      "intersections"
+    ],
+    "minCyrillicRatio": 0.7
+  },
+  "logging": {
+    "level": "info",
+    "timestampFormat": "ISO8601",
+    "includeStackTrace": true
+  }
+}
