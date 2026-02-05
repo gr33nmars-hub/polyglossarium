@@ -21,19 +21,11 @@ export default function Header() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                 >
-                    <svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 200 200"
-                        className="text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <circle cx="100" cy="100" r="95" />
-                        <path d="M 60 140 L 60 60 L 90 60 Q 110 60 110 75 Q 110 90 90 90 L 60 90" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M 130 65 Q 145 65 145 85 L 145 115 Q 145 135 130 135 Q 115 135 115 120 L 130 120" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <img
+                        src="/logogloss.png"
+                        alt="Polyglossarium"
+                        className="w-8 h-8"
+                    />
                 </motion.a>
 
                 {/* Desktop Nav */}
