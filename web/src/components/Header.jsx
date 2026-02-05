@@ -24,7 +24,7 @@ export default function Header() {
                     <img
                         src="/logogloss.png"
                         alt="Polyglossarium"
-                        className="w-8 h-8"
+                        className="w-8 h-8 brightness-110 contrast-125"
                     />
                 </motion.a>
 
