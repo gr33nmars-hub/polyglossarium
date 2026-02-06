@@ -37,16 +37,38 @@ export default function Hero() {
     return (
         <section id="hero" className="min-h-[85vh] w-full flex flex-col justify-center relative overflow-hidden mb-20 border-b-2 border-black">
             {/* Background Grid Lines */}
-            <div className="absolute inset-0 grid grid-cols-6 pointer-events-none opacity-10 z-[1]">
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.1 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                className="absolute inset-0 grid grid-cols-6 pointer-events-none z-[1]"
+            >
                 {[...Array(6)].map((_, i) => (
-                    <div key={i} className="border-r border-black h-full" />
+                    <motion.div 
+                        key={i} 
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: "easeOut" }}
+                        className="border-r border-black h-full origin-top"
+                    />
                 ))}
-            </div>
-            <div className="absolute inset-0 grid grid-rows-6 pointer-events-none opacity-10 z-[1]">
+            </motion.div>
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.1 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                className="absolute inset-0 grid grid-rows-6 pointer-events-none z-[1]"
+            >
                 {[...Array(6)].map((_, i) => (
-                    <div key={i} className="border-b border-black w-full" />
+                    <motion.div 
+                        key={i} 
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: "easeOut" }}
+                        className="border-b border-black w-full origin-left"
+                    />
                 ))}
-            </div>
+            </motion.div>
 
             {/* Animated Image Carousel - positioned at the bottom right */}
             <div className="absolute bottom-4 right-[5%] z-20 pointer-events-none">
@@ -116,14 +138,19 @@ export default function Hero() {
             </motion.div >
 
             {/* Marquee Tape */}
-            <div className="absolute bottom-12 left-0 w-full border-y-2 border-black bg-white py-2 overflow-hidden flex whitespace-nowrap">
+            <motion.div 
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
+                className="absolute bottom-12 left-0 w-full border-y-2 border-black bg-white py-2 overflow-hidden flex whitespace-nowrap"
+            >
                 <div className="animate-marquee font-display text-4xl uppercase tracking-wider flex-shrink-0 pr-8">
                     PHYSICS /// PHILOSOPHY /// CODE /// META-SKILLS /// BIOLOGY /// ECONOMICS /// HISTORY /// ART /// PHYSICS /// PHILOSOPHY /// CODE /// META-SKILLS /// BIOLOGY /// ECONOMICS /// HISTORY /// ART ///
                 </div>
                 <div className="animate-marquee font-display text-4xl uppercase tracking-wider flex-shrink-0 pr-8">
                     PHYSICS /// PHILOSOPHY /// CODE /// META-SKILLS /// BIOLOGY /// ECONOMICS /// HISTORY /// ART /// PHYSICS /// PHILOSOPHY /// CODE /// META-SKILLS /// BIOLOGY /// ECONOMICS /// HISTORY /// ART ///
                 </div>
-            </div>
+            </motion.div>
         </section >
     );
 }
