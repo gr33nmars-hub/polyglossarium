@@ -13,6 +13,9 @@ export default function Header() {
         <div className="fixed top-0 left-0 w-full z-50 flex justify-center pt-6 pointer-events-none">
             <motion.nav
                 style={{ scale, y }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
                 className="pointer-events-auto bg-black text-white px-8 py-4 rounded-full flex items-center gap-12 shadow-brutal border border-white/10 max-w-[90vw] md:max-w-fit transition-all"
             >
                 <motion.a
