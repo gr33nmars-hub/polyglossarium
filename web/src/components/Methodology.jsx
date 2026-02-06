@@ -8,7 +8,13 @@ export default function Methodology() {
 
     return (
         <section id="method" className="py-20 min-h-screen flex flex-col">
-            <div className="mb-12 border-b-2 border-black pb-8">
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="mb-12 border-b-2 border-black pb-8"
+            >
                 <h2 className="text-5xl md:text-8xl font-display uppercase">The Protocol</h2>
                 <p className="font-mono text-xs max-w-xl mt-4">
                     АЛГОРИТМ ГЛУБОКОГО ОБУЧЕНИЯ v2.0. <br />
@@ -22,14 +28,24 @@ export default function Methodology() {
                         ЭТО НЕ ВЫБОР — ЭТО ИМПЕРАТИВ КОГНИТИВНОЙ СИСТЕМЫ, ОСОЗНАВШЕЙ СЕБЯ.
                     </p>
                 </blockquote>
-            </div>
+            </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1">
                 {/* Helper/Navigation Column */}
-                <div className="lg:col-span-4 flex flex-col gap-4">
-                    {protocolSteps.map((step) => (
+                <motion.div 
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="lg:col-span-4 flex flex-col gap-4"
+                >
+                    {protocolSteps.map((step, index) => (
                         <motion.div
                             key={step.id}
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                             className={`p-6 border-2 border-black cursor-pointer transition-all ${activeStep.id === step.id
                                 ? 'bg-black text-white shadow-brutal translate-x-2'
                                 : 'bg-white hover:bg-gray-100'
@@ -45,10 +61,16 @@ export default function Methodology() {
                             <p className="font-mono text-xs mt-2 opacity-70">{step.subtitle}</p>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Terminal/Output Column */}
-                <div className="lg:col-span-8 h-full min-h-[500px]">
+                <motion.div 
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="lg:col-span-8 h-full min-h-[500px]"
+                >
                     <div className="h-full border-2 border-black bg-[#1a1a1a] text-green-500 font-mono p-4 md:p-8 flex flex-col shadow-brutal-lg relative overflow-hidden">
                         {/* Terminal Header */}
                         <div className="flex justify-between items-center border-b border-green-500/30 pb-4 mb-4 opacity-70 text-xs">
@@ -127,7 +149,7 @@ export default function Methodology() {
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
 
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

@@ -5,7 +5,13 @@ export default function Footer() {
 
     return (
         <footer className="border-t-2 border-black bg-white mt-20">
-            <div className="max-w-7xl mx-auto px-4 md:px-12 py-12">
+            <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6 }}
+                className="max-w-7xl mx-auto px-4 md:px-12 py-12"
+            >
                 {/* Main Footer Content */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
                     {/* Logo and Name */}
@@ -75,7 +81,7 @@ export default function Footer() {
                         System Online
                     </p>
                 </div>
-            </div>
+            </motion.div>
         </footer>
     );
 }

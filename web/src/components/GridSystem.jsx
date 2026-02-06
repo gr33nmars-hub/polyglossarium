@@ -81,7 +81,13 @@ export default function GridSystem() {
 
     return (
         <section id="map" className="pt-32 px-4 md:px-8 max-w-[100vw] mx-auto min-h-screen overflow-hidden">
-            <div className="relative flex items-end mb-8 px-4 max-w-[1600px] mx-auto w-full">
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+                className="relative flex items-end mb-8 px-4 max-w-[1600px] mx-auto w-full"
+            >
                 <h2 className="text-5xl md:text-8xl font-display uppercase leading-[0.8] text-center w-full">
                     POLYGLOSSARIUM
                 </h2>
@@ -89,11 +95,15 @@ export default function GridSystem() {
                     МОДУЛЕЙ: {curriculum.length}<br />
                     СТАТУС: АКТИВЕН
                 </div>
-            </div>
+            </motion.div>
 
             {/* Draggable Viewport Container */}
-            <div
+            <motion.div
                 ref={containerRef}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative h-[700px] w-full border-y md:border-2 border-black bg-[#E5E5E5] group/viewport overflow-hidden"
             >
                 {/* Left Blur Edge */}
@@ -124,7 +134,7 @@ export default function GridSystem() {
                 {/* Right Blur Edge */}
                 <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 z-20 pointer-events-none backdrop-blur-xl"
                     style={{ maskImage: 'linear-gradient(to left, black, transparent)' }} />
-            </div>
+            </motion.div>
 
             {/* Main Drawer */}
             <AnimatePresence>
