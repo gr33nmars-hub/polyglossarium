@@ -17,14 +17,14 @@ export default function Header() {
             >
                 <motion.a
                     href="/#hero"
-                    className="flex items-center p-1 rounded-full bg-white"
+                    className="flex items-center p-2 rounded-full bg-white"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                 >
                     <img
                         src="/logogloss.png"
                         alt="Polyglossarium"
-                        className="w-6 h-6"
+                        className="w-10 h-10"
                     />
                 </motion.a>
 
